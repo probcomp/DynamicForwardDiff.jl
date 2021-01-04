@@ -1,0 +1,12 @@
+name = "DynamicForwardDiff"
+uuid = "fe4ab2f8-f6ba-4905-aa0c-1342e36db709"
+authors = ["alex-lew <alexl.mail@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+CommonSubexpressions = "bbf7d656-a473-5ed7-a52c-81e309532950"
+DiffResults = "163ba53b-c6d8-5494-b064-1a9d43ac40c5"
+DiffRules = "b552c78f-8df3-52c6-915a-8e097449b14b"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
