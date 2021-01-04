@@ -9,5 +9,6 @@ import CommonSubexpressions
 
 include("partials.jl")
 include("dual.jl")
+include("apiutils.jl")
 
 end # module
