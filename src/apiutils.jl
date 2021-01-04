@@ -35,3 +35,14 @@ function new_dual(c::DiffConfig{T}, v::V) where {T, V}
     c.n_inputs[] = next_id
     Dual{T,V}(v, Partials{V}(Dict{Int, V}(next_id => one(V)), c.n_inputs))
 end
+
+function new_duals(c::DiffConfig{T}, v::AbstractArray{V}) where {T, V}
+    duals = similar(v, Dual{T,V})
+    next_id = c.n_inputs[]
+    for i in eachindex(v)
+        next_id += 1
+        duals[i] = Dual{T,V}(v[i], Partials{V}(Dict{Int, V}(next_id => one(V)), c.n_inputs))
+    end
+    c.n_inputs[] = next_id
+    return duals
+end
