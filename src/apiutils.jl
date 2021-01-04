@@ -24,9 +24,11 @@ struct DiffConfig{T}
     n_inputs :: Ref{Int}
     tag      :: T
 
-    function DiffConfig()
-        g = gensym()
-        new{Val{g}}(Ref(0), Val{g}())
+    function DiffConfig()::DiffConfig{Nothing}
+        #g = gensym()
+        #new{Val{g}}(Ref(0), Val{g}())
+
+        new{Nothing}(Ref(0), nothing)
     end
 end
 
