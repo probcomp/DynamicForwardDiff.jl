@@ -15,5 +15,27 @@ Begin by creating a DiffConfig:
 cfg = DynamicForwardDiff.DiffConfig()
 ```
 
-Then, at any point during a computation, call `DynamicForwardDiff.add_dual(cfg, v)` on a value `v` of type `<: Real` or `AbstractArray{<: Real}` to begin tracking it as an input.
+Then, at any point during a computation, call `DynamicForwardDiff.add_dual(cfg, v)` on a value `v` of type `<: Real` or `AbstractArray{<: Real}` to begin tracking it as an input. (In the case of an `AbstractArray`, each scalar entry will be registered as separate input.) It is assumed that for two scalar inputs `u` and `v` registered during the course of a computation, `du/dv = 0`.
+
 The final result of the computation will be a value of type `DynamicForwardDiff.Dual`. You can use `value(result)` to extract its value, or `partials(result)` to extract the gradient of `result` with respect to all inputs added by `cfg`, in the order they were added.
+
+For example:
+
+```julia
+cfg = DynamicForwardDiff.DiffConfig()
+
+# Stochastic computation with either one or two random choices
+x = DynamicForwardDiff.add_dual(cfg, rand())
+if x > 0.5
+  x = x^2
+  y = DynamicForwardDiff.add_dual(cfg, rand())
+else
+  y = 7
+end
+result = x*y
+
+# Gradient of `result` with respect to the random choices
+# (will be either length 2 or length 1).
+println(DynamicForwardDiff.partials(result))
+```
+
