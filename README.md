@@ -15,7 +15,7 @@ Begin by creating a DiffConfig:
 cfg = DynamicForwardDiff.DiffConfig()
 ```
 
-Then, at any point during a computation, call `DynamicForwardDiff.add_dual(cfg, v)` on a value `v` of type `<: Real` or `AbstractArray{<: Real}` to begin tracking it as an input. (In the case of an `AbstractArray`, each scalar entry will be registered as separate input.) It is assumed that for two scalar inputs `u` and `v` registered during the course of a computation, `du/dv = 0`.
+Then, at any point during a computation, call `DynamicForwardDiff.new_dual(cfg, v)` on a value `v` of type `<: Real` or `AbstractArray{<: Real}` to begin tracking it as an input. (In the case of an `AbstractArray`, each scalar entry will be registered as separate input.) It is assumed that for two scalar inputs `u` and `v` registered during the course of a computation, `du/dv = 0`.
 
 The final result of the computation will be a value of type `DynamicForwardDiff.Dual`. You can use `value(result)` to extract its value, or `partials(result)` to extract the gradient of `result` with respect to all inputs added by `cfg`, in the order they were added.
 
@@ -25,10 +25,10 @@ For example:
 cfg = DynamicForwardDiff.DiffConfig()
 
 # Stochastic computation with either one or two random choices
-x = DynamicForwardDiff.add_dual(cfg, rand())
+x = DynamicForwardDiff.new_dual(cfg, rand())
 if x > 0.5
   x = x^2
-  y = DynamicForwardDiff.add_dual(cfg, rand())
+  y = DynamicForwardDiff.new_dual(cfg, rand())
 else
   y = 7
 end
