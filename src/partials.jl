@@ -21,8 +21,8 @@ const NO_LENGTH = Ref(0)
 
 @inline Base.@propagate_inbounds Base.getindex(partials::Partials{V}, i::Int) where {V} = get(partials.values, i, zero(V))
 
-Base.iterate(partials::Partials) = length(partials) == 0 ? nothing : (partials.values[1], 2)
-Base.iterate(partials::Partials, i) = length(partials) < i ? nothing : (partials.values[i], i + 1)
+Base.iterate(partials::Partials) = length(partials) == 0 ? nothing : (partials[1], 2)
+Base.iterate(partials::Partials, i) = length(partials) < i ? nothing : (partials[i], i + 1)
 
 Base.IndexStyle(::Type{<:Partials}) = IndexLinear()
 
