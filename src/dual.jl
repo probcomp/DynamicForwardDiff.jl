@@ -68,6 +68,7 @@ end
 
 @inline value(x) = x
 @inline value(d::Dual) = d.value
+@inline value(d::Array{<:Dual}) = map(value, d)
 
 @inline value(::Type{T}, x) where T = x
 @inline value(::Type{T}, d::Dual{T}) where T = value(d)
